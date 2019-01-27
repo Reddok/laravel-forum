@@ -19,7 +19,7 @@ class ReplyTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->reply = create(Reply::class);;
+        $this->reply = create(Reply::class);
     }
 
     /** @test */

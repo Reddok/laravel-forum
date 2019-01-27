@@ -11,10 +11,9 @@
 |
 */
 
+Route::get('/', 'ThreadController@index')->name('main');
+
 Route::resource('/threads', 'ThreadController')->except('show', 'store');
-
-Route::view('/test', 'test');
-
 Route::get('/threads/search', 'ThreadSearchController@index')->name('threads.search');
 
 Route::get('/threads/{channel}/{thread}', 'ThreadController@show')->name('threads.show');
