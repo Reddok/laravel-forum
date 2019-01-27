@@ -13,8 +13,15 @@
 
 Route::get('/', 'ThreadController@index')->name('main');
 
-Route::resource('/threads', 'ThreadController')->except('show', 'store');
+Route::resource('/threads', 'ThreadController')->except('show', 'store', 'create');
 Route::get('/threads/search', 'ThreadSearchController@index')->name('threads.search');
+
+Route::middleware(['auth', 'confirmation'])->group(function() {
+    Route::get('/threads/create', 'ThreadController@create')->name('threads.create');
+    Route::post('/threads', 'ThreadController@store')->name('threads.store');
+    Route::patch('/threads/{channel}/{thread}', 'ThreadController@update')->name('threads.update');
+    Route::post('/replies/{reply}/best', 'BestReplyController@store')->name('best-replies.store');
+});
 
 Route::get('/threads/{channel}/{thread}', 'ThreadController@show')->name('threads.show');
 Route::get('/threads/{channel}', 'ThreadController@index')->name('threads.channel');
@@ -41,11 +48,6 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/api/users/{user}/avatar', 'Api\UserAvatarController@store')->name('api.users.avatar.update');
 });
 
-Route::middleware(['auth', 'confirmation'])->group(function() {
-    Route::post('/threads', 'ThreadController@store')->name('threads.store');
-    Route::patch('/threads/{channel}/{thread}', 'ThreadController@update')->name('threads.update');
-    Route::post('/replies/{reply}/best', 'BestReplyController@store')->name('best-replies.store');
-});
 
 Route::middleware(['admin'])->group(function() {
     Route::post('/lock-threads/{thread}', 'LockThreadsController@store')->name('lock-threads.store');
