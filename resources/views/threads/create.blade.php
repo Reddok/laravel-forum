@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @push('initialScripts');
-<script src='https://www.google.com/recaptcha/api.js?render=6LfHwnkUAAAAAGFy5YqSOBj813cy_IUszU1UcCrq'></script>
+<script src='https://www.google.com/recaptcha/api.js?render={{config('services.recaptcha.key')}}'></script>
 @endpush
 @push('scripts')
     <script>
         grecaptcha.ready(function() {
-            grecaptcha.execute('6LfHwnkUAAAAAGFy5YqSOBj813cy_IUszU1UcCrq', {action: 'thread_creation'})
+            grecaptcha.execute('{{config('services.recaptcha.key')}}', {action: 'thread_creation'})
                 .then(function(token) {
                     var $form = $('#createThreadForm');
 
