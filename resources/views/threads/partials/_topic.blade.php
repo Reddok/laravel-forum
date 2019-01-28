@@ -17,7 +17,9 @@
         <div class="level">
                             <span class="flex">
                                 <img src="{{ $thread->creator->avatar_path }}" alt="{{ $thread->creator->name }}" width="25" height="25">
-                                <a href="{{ route('profiles.index', $thread->creator) }}">{{ $thread->creator->name }}</a> posted:
+                                <a href="{{ route('profiles.index', $thread->creator) }}">
+                                    {{ $thread->creator->name }} ({{ $thread->creator->reputation }}XP)
+                                </a> posted:
                                 <span v-text="thread.title"></span>
                             </span>
 

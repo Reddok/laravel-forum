@@ -11,7 +11,7 @@
                             profile="{{ $profileUser }}"
                     ></avatar-form>
                     <h1>
-                        {{ $profileUser->name }}
+                        {{ $profileUser->name }} ({{ $profileUser->reputation }}XP)
                         <small>since {{ $profileUser->created_at->diffForHumans() }}</small>
                     </h1>
                 </div>
