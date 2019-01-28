@@ -13,10 +13,8 @@ class SampleDataSeeder extends Seeder {
 
     public function run()
     {
-        Schema::disableForeignKeyConstraints();
         $this->channels();
         $this->threads();
-        Schema::enableForeignKeyConstraints();
     }
 
     protected function channels()

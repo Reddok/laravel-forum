@@ -41,6 +41,7 @@ class Thread extends Model
         static::created(function($thread) {
             $thread->slug = $thread->title;
             $thread->save();
+            $thread->creator->increment('reputation', 10);
         });
 
     }
@@ -145,6 +146,7 @@ class Thread extends Model
     {
         $this->best_reply_id = $reply->id;
         $this->save();
+        $reply->owner->increment('reputation', 50);
     }
 
     public function lock()

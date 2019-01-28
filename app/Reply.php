@@ -18,6 +18,14 @@ class Reply extends Model
     protected $appends = ['favoritesCount', 'isFavorited', 'can', 'isBest'];
     protected $touches = ['thread'];
 
+    public static function boot()
+    {
+        parent::boot();
+        static::created(function($reply) {
+            $reply->owner->increment('reputation', 2);
+        });
+    }
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');
