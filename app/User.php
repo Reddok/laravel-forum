@@ -34,6 +34,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public $reputation;
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+//        $this->reputation = new Reputation($this);
+    }
+
     public function threads()
     {
         return $this->hasMany(Thread::class);

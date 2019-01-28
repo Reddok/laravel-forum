@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Helpers\Spam\Spam;
+use App\Reputation;
 use App\Thread;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -17,7 +18,7 @@ class ReputationTest extends TestCase
     public function it_increment_reputation_when_user_make_a_thread()
     {
         $thread = create(Thread::class);
-        $this->assertEquals(10, $thread->creator->reputation);
+        $this->assertEquals(Reputation::THREAD_PUBLISHED_AWARD, $thread->creator->reputation);
     }
 
     /** @test */
@@ -29,7 +30,7 @@ class ReputationTest extends TestCase
             'body' => 'Brand new reply'
         ]);
 
-        $this->assertEquals(2, $reply->owner->reputation);
+        $this->assertEquals(Reputation::REPLY_IN_POST_AWARD, $reply->owner->reputation);
     }
 
     /** @test */
@@ -43,6 +44,6 @@ class ReputationTest extends TestCase
 
         $thread->markAsBest($reply);
 
-        $this->assertEquals(52, $reply->owner->reputation);
+        $this->assertEquals(Reputation::REPLY_IN_POST_AWARD + Reputation::BEST_REPLY_AWARD, $reply->owner->reputation);
     }
 }

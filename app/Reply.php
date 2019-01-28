@@ -22,7 +22,7 @@ class Reply extends Model
     {
         parent::boot();
         static::created(function($reply) {
-            $reply->owner->increment('reputation', 2);
+            Reputation::award($reply->owner, Reputation::REPLY_IN_POST_AWARD);
         });
     }
 
