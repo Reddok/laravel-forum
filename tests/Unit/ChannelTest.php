@@ -2,11 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Channel;
 use App\Thread;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Channel;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ChannelTest extends TestCase
 {

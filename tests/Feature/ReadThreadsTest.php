@@ -2,16 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\Channel;
+use App\User;
 use App\Reply;
 use App\Thread;
-use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Channel;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ReadThreadsTest extends TestCase
 {
-
     use DatabaseMigrations;
 
     protected $thread;
@@ -36,7 +35,6 @@ class ReadThreadsTest extends TestCase
             ->assertSee($this->thread->title);
     }
 
-
     /** @test */
     public function user_can_filter_threads_by_channel()
     {
@@ -55,7 +53,7 @@ class ReadThreadsTest extends TestCase
         $threadWithReplies = create(Thread::class);
         create(Reply::class, ['thread_id' => $threadWithReplies->id], 10);
 
-        $this->get(route('threads.index') . '?unanswered=1')
+        $this->get(route('threads.index').'?unanswered=1')
             ->assertSee($this->thread->title)
             ->assertDontSee($threadWithReplies->title);
     }
@@ -82,9 +80,9 @@ class ReadThreadsTest extends TestCase
         create(Reply::class, ['thread_id' => $threadWith2Replies->id], 2);
         create(Reply::class, ['thread_id' => $threadWith3Replies->id], 3);
 
-        $threads = $this->get(route('threads.index') . '?popular=1')->baseResponse->original->getData()['threads'];
+        $threads = $this->get(route('threads.index').'?popular=1')->baseResponse->original->getData()['threads'];
 
-        $this->assertEquals([3,2,0], $threads->pluck('replies_count')->toArray());
+        $this->assertEquals([3, 2, 0], $threads->pluck('replies_count')->toArray());
     }
 
     /** @test */
@@ -98,7 +96,6 @@ class ReadThreadsTest extends TestCase
 
         $this->assertCount(10, $response['data']);
         $this->assertEquals(20, $response['total']);
-
     }
 
     /** @test */

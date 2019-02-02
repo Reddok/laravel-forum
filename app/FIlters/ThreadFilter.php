@@ -6,7 +6,6 @@ use App\User;
 
 class ThreadFilter extends Filter
 {
-
     protected $filters = ['by', 'popular', 'unanswered'];
 
     protected function by(string $username)
@@ -24,5 +23,4 @@ class ThreadFilter extends Filter
     {
         $this->builder->doesntHave('replies');
     }
-
 }

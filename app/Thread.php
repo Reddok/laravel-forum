@@ -2,15 +2,13 @@
 
 namespace App;
 
-use App\Events\ReplyPostedEvent;
-use App\Filters\ThreadFilter;
-use App\Notifications\ThreadWasUpdated;
-use App\Traits\ActivityRecordable;
 use App\Traits\WithPolicy;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use App\Filters\ThreadFilter;
 use Laravel\Scout\Searchable;
+use App\Events\ReplyPostedEvent;
+use App\Traits\ActivityRecordable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Thread extends Model
 {
@@ -23,35 +21,34 @@ class Thread extends Model
         'user_id' => 'integer',
         'channel_id' => 'integer',
         'best_reply_id' => 'integer',
-        'locked' => 'boolean'
+        'locked' => 'boolean',
     ];
 
     public static function boot()
     {
         parent::boot();
 
-        static::addGlobalScope(function($builder) {
+        static::addGlobalScope(function ($builder) {
             $builder->withCount('replies');
         });
 
-        static::deleting(function($thread) {
+        static::deleting(function ($thread) {
             $thread->replies->each->delete();
             Reputation::rewoke($thread->creator, Reputation::THREAD_PUBLISHED_AWARD);
         });
 
-        static::created(function($thread) {
+        static::created(function ($thread) {
             $thread->slug = $thread->title;
             $thread->save();
             Reputation::award($thread->creator, Reputation::THREAD_PUBLISHED_AWARD);
         });
-
     }
 
     public function toSearchableArray()
     {
         $result = $this->toArray() + [
                 'path' => $this->path(),
-                'visits' => $this->visits->count()
+                'visits' => $this->visits->count(),
             ];
         $result['creator']['path'] = $this->creator->path();
 
@@ -60,7 +57,7 @@ class Thread extends Model
 
     public function path(string $ending = '')
     {
-        return '/threads/' . $this->channel->slug . '/' . $this->slug . ($ending? '/' . $ending : '');
+        return '/threads/'.$this->channel->slug.'/'.$this->slug.($ending ? '/'.$ending : '');
     }
 
     public function replies()
@@ -87,14 +84,15 @@ class Thread extends Model
     {
         $reply = $this->replies()->create($reply);
         event(new ReplyPostedEvent($reply));
+
         return $reply;
     }
-
 
     public function subscribe($userId = null)
     {
         $userId = $userId ?? auth()->id();
         $this->subscriptions()->create(['user_id' => $userId]);
+
         return $this;
     }
 
@@ -124,12 +122,13 @@ class Thread extends Model
     public function hasUpdatesFor(User $user)
     {
         $key = $user->getThreadReadCacheKey($this);
+
         return cache($key) < $this->updated_at;
     }
 
     public function getVisitsAttribute($value)
     {
-        return $value? $value : new Visits($this);
+        return $value ? $value : new Visits($this);
     }
 
     public function getRouteKeyName()
@@ -141,8 +140,8 @@ class Thread extends Model
     {
         $slug = str_slug($slug);
 
-        if(Thread::whereSlug($slug)->exists()) {
-            $slug = $slug . '-' . $this->id;
+        if (self::whereSlug($slug)->exists()) {
+            $slug = $slug.'-'.$this->id;
         }
 
         $this->attributes['slug'] = $slug;

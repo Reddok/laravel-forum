@@ -8,20 +8,18 @@ use App\Http\Controllers\Controller;
 
 class UserAvatarController extends Controller
 {
-
     public function store(User $user, Request $request)
     {
         $this->authorize('update', $user);
 
         $this->validate($request, [
-            'avatar' => 'required|image'
+            'avatar' => 'required|image',
         ]);
 
         $user->update([
-            'avatar_path' => $request->file('avatar')->store('avatars', 'public')
+            'avatar_path' => $request->file('avatar')->store('avatars', 'public'),
         ]);
 
         return response([], 204);
     }
-
 }

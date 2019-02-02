@@ -19,12 +19,12 @@ $factory->define(App\Thread::class, function (Faker $faker) {
     return [
         'title' => $title,
         'body' => $faker->paragraph,
-        'user_id' => function() {
+        'user_id' => function () {
             return create(\App\User::class)->id;
         }, // secret
-        'channel_id' => function() {
+        'channel_id' => function () {
             return create(\App\Channel::class)->id;
         },
-        'locked' => false
+        'locked' => false,
     ];
 });

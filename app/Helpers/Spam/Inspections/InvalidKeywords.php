@@ -2,10 +2,10 @@
 
 namespace App\Helpers\Spam\Inspections;
 
-class InvalidKeywords {
-
+class InvalidKeywords
+{
     protected $invalidKeywords = [
-        'yahoo customer support'
+        'yahoo customer support',
     ];
 
     public function detect(string $string)
@@ -16,5 +16,4 @@ class InvalidKeywords {
             }
         }
     }
-
 }

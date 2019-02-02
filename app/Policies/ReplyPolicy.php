@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Reply;
 use App\User;
+use App\Reply;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ReplyPolicy
@@ -22,7 +22,7 @@ class ReplyPolicy
 
     public function create(User $user)
     {
-        return !($user->fresh()->lastReply && $user->lastReply->justPublished());
+        return ! ($user->fresh()->lastReply && $user->lastReply->justPublished());
     }
 
     public function delete(User $user, Reply $reply)

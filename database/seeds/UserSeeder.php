@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder {
-
+class UserSeeder extends Seeder
+{
     public function run()
     {
         User::truncate();
@@ -12,8 +12,7 @@ class UserSeeder extends Seeder {
         factory(User::class)
             ->create([
                 'name' => 'John Doe',
-                'email' => 'john@example.com'
+                'email' => 'john@example.com',
             ]);
     }
-
 }

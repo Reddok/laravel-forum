@@ -5,7 +5,6 @@ namespace App\Notifications;
 use App\Reply;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class YouAreMentioned extends Notification
@@ -57,13 +56,12 @@ class YouAreMentioned extends Notification
      */
     public function toArray($notifiable)
     {
-        $finding = strpos($this->reply->body, '@' . $notifiable->name);
-        $excert = substr($this->reply->body, $finding, 50) . '...';
-
+        $finding = strpos($this->reply->body, '@'.$notifiable->name);
+        $excert = substr($this->reply->body, $finding, 50).'...';
 
         return [
-            'message' => 'You have been mentioned in reply: ' . $excert,
-            'link' => $this->reply->path()
+            'message' => 'You have been mentioned in reply: '.$excert,
+            'link' => $this->reply->path(),
         ];
     }
 }

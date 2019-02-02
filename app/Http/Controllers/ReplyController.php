@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ReplyCreateRequest;
-use App\Notifications\YouAreMentioned;
-use \App\Rules\Spam;
 use App\Reply;
 use App\Thread;
-use App\User;
+use App\Rules\Spam;
 use Illuminate\Http\Request;
+use App\Http\Requests\ReplyCreateRequest;
 
 class ReplyController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth')->except('index');
@@ -31,7 +28,7 @@ class ReplyController extends Controller
 
         return response($thread->addReply([
             'body' => $request->post('body'),
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
         ])
             ->load('owner'), 201);
     }
@@ -49,13 +46,11 @@ class ReplyController extends Controller
     {
         $this->authorize('update', $reply);
 
-
         $this->validate($request, [
-            'body' => ['required', new Spam]
+            'body' => ['required', new Spam],
         ]);
         $reply->update(['body' => $request->get('body')]);
 
         return $reply;
     }
-
 }

@@ -2,13 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Activity;
-use App\Thread;
 use App\User;
+use App\Thread;
+use App\Activity;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ProfileTest extends TestCase
 {

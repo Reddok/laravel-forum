@@ -2,8 +2,8 @@
 
 namespace App;
 
-use App\Traits\WithPolicy;
 use Carbon\Carbon;
+use App\Traits\WithPolicy;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -17,12 +17,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar_path'
+        'name', 'email', 'password', 'avatar_path',
     ];
     protected $appends = ['can'];
     protected $casts = [
         'confirmed' => 'boolean',
-        'is_admin' => 'boolean'
+        'is_admin' => 'boolean',
     ];
 
     /**
@@ -33,7 +33,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
 
     public function __construct(array $attributes = [])
     {
@@ -84,7 +83,8 @@ class User extends Authenticatable
         cache()->forever($key, Carbon::now());
     }
 
-    public function getAvatarPathAttribute($value) {
-        return  asset('/storage/' . ($value?: 'avatars/default.png'));
+    public function getAvatarPathAttribute($value)
+    {
+        return  asset('/storage/'.($value ?: 'avatars/default.png'));
     }
 }

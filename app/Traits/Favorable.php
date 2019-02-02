@@ -5,11 +5,11 @@ namespace App\Traits;
 use App\Favorite;
 use App\Reputation;
 
-trait Favorable {
-
+trait Favorable
+{
     protected static function bootFavorable()
     {
-        static::deleted(function($item) {
+        static::deleted(function ($item) {
             return $item->favorites->each->delete();
         });
     }
@@ -21,7 +21,7 @@ trait Favorable {
 
     public function favorite()
     {
-        if (!$this->isFavorited()) {
+        if (! $this->isFavorited()) {
             $this->favorites()->create(['user_id' => auth()->id()]);
             Reputation::award($this->owner, Reputation::REPLY_FAVORITED_AWARD);
         }
@@ -40,7 +40,7 @@ trait Favorable {
 
     public function isFavorited()
     {
-        return !!$this->favorites->where('user_id', auth()->id())->count();
+        return (bool) $this->favorites->where('user_id', auth()->id())->count();
     }
 
     public function getFavoritesCountAttribute()
@@ -52,5 +52,4 @@ trait Favorable {
     {
         return $this->isFavorited();
     }
-
 }

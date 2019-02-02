@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use \App\Helpers\Spam\Spam as SpamDetector;
+use App\Helpers\Spam\Spam as SpamDetector;
 
 class Spam implements Rule
 {
@@ -32,10 +32,12 @@ class Spam implements Rule
     {
         try {
             $this->spamDetector->detect($value);
+
             return true;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->message = $e->getMessage();
             $this->attribute = $attribute;
+
             return false;
         }
     }
@@ -47,6 +49,6 @@ class Spam implements Rule
      */
     public function message()
     {
-        return 'The ' . $this->attribute . ' is a spam';
+        return 'The '.$this->attribute.' is a spam';
     }
 }

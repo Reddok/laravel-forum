@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Support\Facades\Redis;
 
-class Trending {
-
+class Trending
+{
     protected $key;
 
     public function __construct($key = 'trending_threads')
@@ -27,5 +27,4 @@ class Trending {
     {
         Redis::del($this->key);
     }
-
 }

@@ -2,12 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Activity;
 use App\Reply;
 use App\Thread;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Activity;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ActivityTest extends TestCase
 {
@@ -25,7 +24,7 @@ class ActivityTest extends TestCase
             'type' => 'created_thread',
             'user_id' => $userId,
             'subject_id' => $thread->id,
-            'subject_type' => Thread::class
+            'subject_type' => Thread::class,
         ]);
 
         $activity = Activity::first();
