@@ -1,7 +1,4 @@
-# Forum 
-Travis CI: [![Build Status](https://travis-ci.org/Reddok/laravel-forum.svg?branch=master)](https://travis-ci.org/Reddok/laravel-forum)
-
-Style CI: [![Build Status](https://github.styleci.io/repos/167816228/shield?branch=master)](https://github.styleci.io/repos/167816228)
+# Forum [![Build Status](https://travis-ci.org/Reddok/laravel-forum.svg?branch=master)](https://travis-ci.org/Reddok/laravel-forum) [![Build Status](https://github.styleci.io/repos/167816228/shield?branch=master)](https://github.styleci.io/repos/167816228)
 
 This is forum that was built on Laravel and Vue.js.
 
