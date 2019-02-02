@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Favorite;
+use App\Reputation;
 
 trait Favorable {
 
@@ -22,6 +23,7 @@ trait Favorable {
     {
         if (!$this->isFavorited()) {
             $this->favorites()->create(['user_id' => auth()->id()]);
+            Reputation::award($this->owner, Reputation::REPLY_FAVORITED_AWARD);
         }
     }
 
@@ -32,6 +34,8 @@ trait Favorable {
             ->get()
             ->each
             ->delete();
+
+        Reputation::rewoke($this->owner, Reputation::REPLY_FAVORITED_AWARD);
     }
 
     public function isFavorited()

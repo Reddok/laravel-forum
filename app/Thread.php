@@ -36,6 +36,7 @@ class Thread extends Model
 
         static::deleting(function($thread) {
             $thread->replies->each->delete();
+            Reputation::rewoke($thread->creator, Reputation::THREAD_PUBLISHED_AWARD);
         });
 
         static::created(function($thread) {
@@ -65,6 +66,11 @@ class Thread extends Model
     public function replies()
     {
         return $this->hasMany(Reply::class);
+    }
+
+    public function bestReply()
+    {
+        return $this->hasOne(Reply::class, 'id', 'best_reply_id');
     }
 
     public function creator()
@@ -144,9 +150,15 @@ class Thread extends Model
 
     public function markAsBest($reply)
     {
+        $exBestReply = $this->bestReply;
+
         $this->best_reply_id = $reply->id;
         $this->save();
         Reputation::award($reply->owner, Reputation::BEST_REPLY_AWARD);
+
+        if ($exBestReply) {
+            Reputation::rewoke($exBestReply->owner, Reputation::BEST_REPLY_AWARD);
+        }
     }
 
     public function lock()
