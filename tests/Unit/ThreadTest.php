@@ -61,17 +61,19 @@ class ThreadTest extends TestCase
     /** @test */
     public function user_can_subscribe_on_thread()
     {
-        $this->thread->subscribe($userId = 2);
-        $this->assertCount(1, $this->thread->subscriptions()->where(['user_id' => $userId])->get());
+        $user = create(User::class);
+        $this->thread->subscribe($user->id);
+        $this->assertCount(1, $this->thread->subscriptions()->where(['user_id' => $user->id])->get());
     }
 
     /** @test */
     public function user_can_unsubscribe_from_thread()
     {
-        $this->thread->subscribe($userId = 2);
-        $this->thread->unsubscribe($userId);
+        $user = create(User::class);
+        $this->thread->subscribe($user->id);
+        $this->thread->unsubscribe($user->id);
 
-        $this->assertCount(0, $this->thread->subscriptions()->where(['user_id' => $userId])->get());
+        $this->assertCount(0, $this->thread->subscriptions()->where(['user_id' => $user->id])->get());
     }
 
     /** @test */
