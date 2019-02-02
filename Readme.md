@@ -1,4 +1,4 @@
-# Forum
+# Forum [![Build Status](https://travis-ci.org/Reddok/laravel-forum.svg?branch=master)](https://travis-ci.org/Reddok/laravel-forum)
 
 This is forum that was built on Laravel and Vue.js.
 
