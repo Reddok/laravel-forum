@@ -7,7 +7,7 @@
 
 <script>
     import 'trix';
-    import 'trix/dist/trix.css'
+    import 'trix/dist/trix.css';
 
     export default {
         props: ['name', 'value'],

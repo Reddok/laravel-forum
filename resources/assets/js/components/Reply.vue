@@ -14,7 +14,9 @@
 
         <form @submit.prevent="update">
             <div class="card-body">
-                <div v-if="editMode === false" v-html="body"></div>
+                <code-highlight v-if="editMode === false">
+                    <div v-html="body"></div>
+                </code-highlight>
                 <div class="form-group" v-else>
                     <wysiwyg v-model="body"></wysiwyg>
                 </div>

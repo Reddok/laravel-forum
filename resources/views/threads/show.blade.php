@@ -40,9 +40,7 @@
                                 <button class="btn btn-secondary" v-if="isAdmin()" @click="toggleLock" v-text="locked? 'Unlock' : 'Lock'"></button>
                             </p>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>

@@ -19,7 +19,7 @@ window.Vue.prototype.isAdmin = function() {
 };
 
 window.Vue.use(InstantSearch);
-
+window.Vue.config.ignoredElements = ['trix-editor'];
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -36,6 +36,7 @@ Vue.component('avatar-form', require('./components/AvatarForm.vue'));
 Vue.component('image-upload', require('./components/ImageUpload.vue'));
 Vue.component('wysiwyg', require('./components/Wysiwyg'));
 Vue.component('highlight', require('./components/Highlight'));
+Vue.component('code-highlight', require('./components/CodeHighlight'));
 
 
 const app = new Vue({

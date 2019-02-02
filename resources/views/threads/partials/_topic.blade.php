@@ -32,7 +32,9 @@
             @endcan
         </div>
     </div>
-    <div class="card-body" v-html="thread.body"></div>
+    <div class="card-body">
+        <code-highlight v-html="thread.body"></code-highlight>
+    </div>
     @can('update', $thread)
         <div class="card-footer">
             <button class="btn btn-primary btn-sm" @click="editing=true">Edit</button>
