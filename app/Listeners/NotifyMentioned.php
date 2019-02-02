@@ -2,14 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Notifications\YouAreMentioned;
 use App\User;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Notifications\YouAreMentioned;
 
 class NotifyMentioned
 {
-
     /**
      * Handle the event.
      *

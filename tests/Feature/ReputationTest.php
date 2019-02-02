@@ -2,13 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Helpers\Spam\Spam;
-use App\Reputation;
-use App\Thread;
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Thread;
+use App\Reputation;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ReputationTest extends TestCase
 {
@@ -27,7 +25,7 @@ class ReputationTest extends TestCase
         $thread = create(Thread::class);
         $reply = $thread->addReply([
             'user_id' => create(User::class)->id,
-            'body' => 'Brand new reply'
+            'body' => 'Brand new reply',
         ]);
 
         $this->assertEquals(Reputation::REPLY_IN_POST_AWARD, $reply->owner->reputation);
@@ -39,7 +37,7 @@ class ReputationTest extends TestCase
         $thread = create(Thread::class);
         $reply = $thread->addReply([
             'user_id' => create(User::class)->id,
-            'body' => 'Brand new reply'
+            'body' => 'Brand new reply',
         ]);
 
         $thread->markAsBest($reply);
@@ -55,7 +53,7 @@ class ReputationTest extends TestCase
         $thread = create(Thread::class);
         $reply = $thread->addReply([
             'user_id' => create(User::class)->id,
-            'body' => 'Brand new reply'
+            'body' => 'Brand new reply',
         ]);
 
         $this->post(route('replies.favorite', compact('reply')));
@@ -85,7 +83,7 @@ class ReputationTest extends TestCase
         $thread = create(Thread::class);
         $reply = $thread->addReply([
             'user_id' => $user->id,
-            'body' => 'Brand new reply'
+            'body' => 'Brand new reply',
         ]);
 
         $this->assertEquals(Reputation::REPLY_IN_POST_AWARD, $user->fresh()->reputation);
@@ -100,7 +98,7 @@ class ReputationTest extends TestCase
         $thread = create(Thread::class);
         $reply = $thread->addReply([
             'user_id' => create(User::class)->id,
-            'body' => 'Brand new reply'
+            'body' => 'Brand new reply',
         ]);
 
         $thread->markAsBest($reply);
@@ -109,7 +107,7 @@ class ReputationTest extends TestCase
 
         $anotherReply = $thread->addReply([
             'user_id' => create(User::class)->id,
-            'body' => 'Even better reply'
+            'body' => 'Even better reply',
         ]);
 
         $thread->markAsBest($anotherReply);
@@ -124,7 +122,7 @@ class ReputationTest extends TestCase
         $thread = create(Thread::class);
         $reply = $thread->addReply([
             'user_id' => create(User::class)->id,
-            'body' => 'Brand new reply'
+            'body' => 'Brand new reply',
         ]);
 
         $this->post(route('replies.favorite', compact('reply')));

@@ -2,14 +2,13 @@
 
 namespace Tests\Feature;
 
-use App\Channel;
+use App\User;
 use App\Reply;
 use App\Thread;
-use App\User;
+use App\Channel;
+use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
-
 
 class ThreadTest extends TestCase
 {
@@ -40,7 +39,7 @@ class ThreadTest extends TestCase
     {
         $this->thread->addReply([
             'body' => 'foobar',
-            'user_id' => 1
+            'user_id' => 1,
         ]);
 
         $this->assertCount(1, $this->thread->replies);
@@ -55,7 +54,7 @@ class ThreadTest extends TestCase
     /** @test */
     public function it_have_valid_path()
     {
-        $this->assertEquals('/threads/' . $this->thread->channel->slug . '/' . $this->thread->slug, $this->thread->path());
+        $this->assertEquals('/threads/'.$this->thread->channel->slug.'/'.$this->thread->slug, $this->thread->path());
     }
 
     /** @test */
@@ -92,7 +91,7 @@ class ThreadTest extends TestCase
 
         $this->thread->addReply([
             'body' => 'test reply',
-            'user_id' => create(User::class)->id
+            'user_id' => create(User::class)->id,
         ]);
 
         $this->assertTrue($this->thread->fresh()->hasUpdatesFor($user));

@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class ThreadSubscriptionController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -26,11 +25,9 @@ class ThreadSubscriptionController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
      */
     public function create()
     {
-
     }
 
     /**
@@ -41,6 +38,7 @@ class ThreadSubscriptionController extends Controller
     public function store(string $channel, Thread $thread, Request $request)
     {
         $thread->subscribe();
+
         return ['message' => 'Success'];
     }
 
@@ -87,6 +85,7 @@ class ThreadSubscriptionController extends Controller
     public function destroy(string $channel, Thread $thread)
     {
         $thread->unsubscribe();
+
         return ['message' => 'Success'];
     }
 }

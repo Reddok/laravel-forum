@@ -4,14 +4,11 @@ namespace Tests\Feature;
 
 use App\Reply;
 use App\Thread;
-use App\User;
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ParticipateForumTest extends TestCase
 {
-
     use DatabaseMigrations;
 
     /** @test */
@@ -36,7 +33,7 @@ class ParticipateForumTest extends TestCase
         $this->post($thread->path('replies'), [])
             ->assertRedirect(route('login'));
     }
-    
+
     /** @test */
     public function reply_requires_body()
     {
@@ -88,7 +85,7 @@ class ParticipateForumTest extends TestCase
         $this->patch(route('replies.update', $reply), compact('body'));
         $this->assertDatabaseHas('replies', [
             'id' => $reply->id,
-            'body' => $body
+            'body' => $body,
         ]);
     }
 
@@ -119,7 +116,7 @@ class ParticipateForumTest extends TestCase
 //        $this->expectException(\Exception::class);
 
         $this->postJson(route('replies.create', ['channel' => $thread->channel, 'thread' => $thread]), [
-            'body' => 'Yahoo Customer Support'
+            'body' => 'Yahoo Customer Support',
         ])->assertStatus(422);
     }
 
@@ -140,5 +137,4 @@ class ParticipateForumTest extends TestCase
         $this->postJson(route('replies.create', ['channel' => $thread->channel, 'thread' => $thread]), $reply)
             ->assertStatus(429);
     }
-
 }

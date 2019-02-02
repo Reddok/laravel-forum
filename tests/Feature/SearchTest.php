@@ -3,9 +3,8 @@
 namespace Tests\Feature;
 
 use App\Thread;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SearchTest extends TestCase
 {
@@ -15,7 +14,7 @@ class SearchTest extends TestCase
     public function user_can_search_among_the_threads()
     {
         config()->set('scout.driver', 'algolia');
-        $search = "Foobar";
+        $search = 'Foobar';
         create(Thread::class, [], 2);
         create(Thread::class, ['body' => "Thread with {$search} term"], 2);
 
@@ -23,7 +22,6 @@ class SearchTest extends TestCase
             sleep(1);
             $response = $this->getJson(route('threads.search', ['q' => $search]))->json()['data'];
         } while (count($response) < 2);
-
 
         $this->assertCount(2, $response);
 

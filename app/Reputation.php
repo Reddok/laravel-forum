@@ -2,8 +2,8 @@
 
 namespace App;
 
-class Reputation {
-
+class Reputation
+{
     const THREAD_PUBLISHED_AWARD = 10;
     const REPLY_IN_POST_AWARD = 2;
     const BEST_REPLY_AWARD = 50;

@@ -20,5 +20,4 @@ class ReplyPostedEvent
     {
         $this->reply = $reply;
     }
-
 }

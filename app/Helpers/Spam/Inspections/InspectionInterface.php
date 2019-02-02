@@ -2,8 +2,7 @@
 
 namespace App\Helpers\Spam\Inspections;
 
-interface InspectionInterface {
-
-    function detect(string $body);
-
+interface InspectionInterface
+{
+    public function detect(string $body);
 }

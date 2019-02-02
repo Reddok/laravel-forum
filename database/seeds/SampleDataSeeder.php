@@ -1,16 +1,15 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Schema;
-use App\Channel;
-use App\Thread;
 use App\Reply;
-use App\ThreadSubscription;
+use App\Thread;
+use App\Channel;
 use App\Activity;
 use App\Favorite;
+use App\ThreadSubscription;
+use Illuminate\Database\Seeder;
 
-class SampleDataSeeder extends Seeder {
-
+class SampleDataSeeder extends Seeder
+{
     public function run()
     {
         $this->channels();

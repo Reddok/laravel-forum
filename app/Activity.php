@@ -15,7 +15,7 @@ class Activity extends Model
 
     public static function feed(User $user, int $limit = 50)
     {
-        return static::where(['user_id' => $user->id])->latest()->with('subject')->take($limit)->get()->groupBy(function($item) {
+        return static::where(['user_id' => $user->id])->latest()->with('subject')->take($limit)->get()->groupBy(function ($item) {
             return $item->created_at->format('Y-m-d');
         });
     }
