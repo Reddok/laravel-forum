@@ -4,9 +4,9 @@ namespace App\Http\Requests;
 
 use App\Reply;
 use App\Rules\Spam;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
-use Illuminate\Support\Facades\Gate;
 
 class ReplyCreateRequest extends FormRequest
 {
@@ -33,7 +33,7 @@ class ReplyCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'body' => ['required', new Spam()]
+            'body' => ['required', new Spam()],
         ];
     }
 }

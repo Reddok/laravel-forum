@@ -2,13 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Mail\PleaseConfirmEmail;
 use App\User;
+use Tests\TestCase;
+use App\Mail\PleaseConfirmEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\Mail;
-use Tests\TestCase;
-
 
 class RegisterTest extends TestCase
 {
@@ -35,7 +34,6 @@ class RegisterTest extends TestCase
             'password' => '123456',
             'password_confirmation' => '123456',
         ]);
-
 
         $user = User::where(['name' => 'John'])->first();
 

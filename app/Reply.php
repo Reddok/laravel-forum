@@ -2,15 +2,14 @@
 
 namespace App;
 
-use App\Traits\ActivityRecordable;
+use Carbon\Carbon;
 use App\Traits\Favorable;
 use App\Traits\WithPolicy;
-use Carbon\Carbon;
+use App\Traits\ActivityRecordable;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-
     use Favorable, ActivityRecordable, WithPolicy;
 
     protected $guarded = [];
@@ -21,7 +20,7 @@ class Reply extends Model
     public static function boot()
     {
         parent::boot();
-        static::created(function($reply) {
+        static::created(function ($reply) {
             Reputation::award($reply->owner, Reputation::REPLY_IN_POST_AWARD);
         });
     }
@@ -40,8 +39,8 @@ class Reply extends Model
     {
         return route('threads.show', [
                 'channel' => $this->thread->channel->id,
-                'thread' => $this->thread->id
-            ]) . '#reply-' . $this->id;
+                'thread' => $this->thread->id,
+            ]).'#reply-'.$this->id;
     }
 
     public function justPublished()
@@ -52,12 +51,13 @@ class Reply extends Model
     public function detectMentioned()
     {
         preg_match_all('~@([\w-]+)~', $this->body, $matches);
+
         return $matches[1];
     }
 
     public function setBodyAttribute($value)
     {
-        $this->attributes['body'] = preg_replace('~@([\w-]+)~', '<a href="' . route('profiles.index', ['user' => '']) . '/$1">$0</a>', $value);
+        $this->attributes['body'] = preg_replace('~@([\w-]+)~', '<a href="'.route('profiles.index', ['user' => '']).'/$1">$0</a>', $value);
     }
 
     public function isBest()
@@ -69,5 +69,4 @@ class Reply extends Model
     {
         return $this->isBest();
     }
-
 }

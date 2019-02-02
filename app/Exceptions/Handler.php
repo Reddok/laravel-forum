@@ -3,9 +3,9 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {

@@ -3,11 +3,10 @@
 namespace Tests\Feature;
 
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AddAvatarTest extends TestCase
 {
@@ -29,7 +28,7 @@ class AddAvatarTest extends TestCase
         $this->signIn();
 
         $this->postJson(route('api.users.avatar.update', auth()->user()), [
-            'avatar' => 'not an image'
+            'avatar' => 'not an image',
         ])
             ->assertStatus(422);
     }
@@ -53,13 +52,13 @@ class AddAvatarTest extends TestCase
         $user = auth()->user();
 
         $this->postJson(route('api.users.avatar.update', $user), [
-            'avatar' => $file = UploadedFile::fake()->image('avatar.jpg')
+            'avatar' => $file = UploadedFile::fake()->image('avatar.jpg'),
         ])
             ->assertStatus(204);
 
-        Storage::disk('public')->assertExists('avatars/' . $file->hashName());
+        Storage::disk('public')->assertExists('avatars/'.$file->hashName());
 
-        $this->assertEquals(asset('/storage/avatars/' . $file->hashName()), $user->fresh()->avatar_path);
+        $this->assertEquals(asset('/storage/avatars/'.$file->hashName()), $user->fresh()->avatar_path);
     }
 
     /** @test */

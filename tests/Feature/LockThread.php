@@ -2,11 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Thread;
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Thread;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LockThread extends TestCase
 {
@@ -21,7 +20,7 @@ class LockThread extends TestCase
         $thread->lock();
 
         $this->post(route('replies.create', ['channel' => $thread->channel, 'thread' => $thread]), [
-            'body' => 'lolololol'
+            'body' => 'lolololol',
         ])->assertStatus(422);
     }
 

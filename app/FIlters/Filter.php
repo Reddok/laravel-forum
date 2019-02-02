@@ -2,12 +2,11 @@
 
 namespace App\Filters;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 abstract class Filter
 {
-
     protected $request;
     protected $builder;
     protected $filters = [];
@@ -34,5 +33,4 @@ abstract class Filter
     {
         return $this->request->only($this->filters);
     }
-
 }

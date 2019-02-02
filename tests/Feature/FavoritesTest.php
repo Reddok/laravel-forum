@@ -3,9 +3,8 @@
 namespace Tests\Feature;
 
 use App\Reply;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class FavoritesTest extends TestCase
 {

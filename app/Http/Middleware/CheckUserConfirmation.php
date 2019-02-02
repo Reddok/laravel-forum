@@ -18,7 +18,7 @@ class CheckUserConfirmation
         if (empty(auth()->user()) || empty(auth()->user()->confirmed)) {
             $obj = [
                 'message' => 'You need to confirm email before take an action!',
-                'level' => 'danger'
+                'level' => 'danger',
             ];
 
             return redirect(route('threads.index'))

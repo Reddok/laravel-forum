@@ -2,11 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Thread;
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Thread;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ThreadUpdateTest extends TestCase
 {
@@ -46,7 +45,7 @@ class ThreadUpdateTest extends TestCase
     {
         $newAttrs = [
             'title' => 'New Title',
-            'body' => 'New Body'
+            'body' => 'New Body',
         ];
 
         $this->patch(route('threads.update', ['channel' => $this->thread->channel, 'thread' => $this->thread]), $newAttrs);

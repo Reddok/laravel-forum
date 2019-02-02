@@ -4,9 +4,8 @@ namespace Tests\Feature;
 
 use App\Reply;
 use App\Thread;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ThreadSubscriptions extends TestCase
 {
@@ -19,11 +18,11 @@ class ThreadSubscriptions extends TestCase
 
         $thread = create(Thread::class);
 
-        $this->post($thread->path() . '/subscriptions');
+        $this->post($thread->path().'/subscriptions');
 
         $reply = make(Reply::class, [
             'thread_id' => $thread->id,
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
         ]);
         $thread->addReply($reply->toArray());
         $user = auth()->user();

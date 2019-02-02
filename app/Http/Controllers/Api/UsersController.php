@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
-
     public function index(Request $request)
     {
         $search = $request->get('query');

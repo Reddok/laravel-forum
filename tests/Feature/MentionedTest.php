@@ -2,13 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use App\Reply;
 use App\Thread;
-use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class MentionedTest extends TestCase
 {
@@ -19,32 +17,31 @@ class MentionedTest extends TestCase
     {
         $john = create(User::class);
         $jane = create(User::class, [
-            'name' => 'JaneDoe'
+            'name' => 'JaneDoe',
         ]);
         $thread = create(Thread::class);
 
         $this->signIn($john);
 
         $this->postJson(route('replies.create', ['channel' => $thread->channel, 'thread' => $thread]), [
-            'body' => 'Hello, @JaneDoe'
+            'body' => 'Hello, @JaneDoe',
         ])
             ->assertStatus(201);
 
         $this->assertCount(1, $jane->notifications);
-
     }
 
     /** @test */
     public function it_create_links_from_mentioned_users()
     {
         $jane = create(User::class, [
-            'name' => 'JaneDoe'
+            'name' => 'JaneDoe',
         ]);
         $reply = create(Reply::class, [
-            'body' => 'Hello, @JaneDoe'
+            'body' => 'Hello, @JaneDoe',
         ]);
 
-        $this->assertEquals('Hello, <a href="' . route('profiles.index', $jane) . '">@JaneDoe</a>', $reply->body);
+        $this->assertEquals('Hello, <a href="'.route('profiles.index', $jane).'">@JaneDoe</a>', $reply->body);
     }
 
     /** @test */

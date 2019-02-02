@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Channel;
-use App\Filters\ThreadFilter;
-use App\Rules\Recaptcha;
-use App\Rules\Spam;
 use App\Thread;
+use App\Channel;
 use App\Trending;
+use App\Rules\Spam;
+use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
-use Zttp\Zttp;
+use App\Filters\ThreadFilter;
 
 class ThreadController extends Controller
 {
-
     protected $trending;
 
     public function __construct()
@@ -30,7 +27,6 @@ class ThreadController extends Controller
      */
     public function index(Channel $channel = null, ThreadFilter $filters)
     {
-
         $threads = Thread::filter($filters);
 
         if ($channel && $channel->exists) {
@@ -41,6 +37,7 @@ class ThreadController extends Controller
         $threads = $threads->paginate(5);
 
         $trending = $this->trending->get(4);
+
         return view('threads/index', compact('threads', 'trending'));
     }
 
@@ -66,7 +63,7 @@ class ThreadController extends Controller
             'title' => 'required',
             'body' => ['required', new Spam],
             'channel_id' => 'required|exists:channels,id',
-            'g-recaptcha-response' => ['required', $recaptcha]
+            'g-recaptcha-response' => ['required', $recaptcha],
         ]);
 
         $thread = Thread::create([
@@ -74,7 +71,7 @@ class ThreadController extends Controller
             'body' => $request->get('body'),
             'user_id' => auth()->id(),
             'channel_id' => $request->get('channel_id'),
-            'slug' => str_slug($request->get('title'))
+            'slug' => str_slug($request->get('title')),
         ]);
 
         if ($request->wantsJson()) {
@@ -98,7 +95,8 @@ class ThreadController extends Controller
 
         $this->trending->push(['title' => $thread->title, 'path' => $thread->path()]);
         $thread->visits->record();
-        return view('threads/show',compact('thread'));
+
+        return view('threads/show', compact('thread'));
     }
 
     /**

@@ -2,13 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use App\Reply;
 use App\Thread;
-use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ReplyTest extends TestCase
 {

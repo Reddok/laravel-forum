@@ -18,9 +18,9 @@ $factory->define(\Illuminate\Notifications\DatabaseNotification::class, function
         'id' => \Illuminate\Support\Str::uuid()->toString(),
         'type' => \App\Notifications\ThreadWasUpdated::class,
         'notifiable_type' => \App\User::class,
-        'notifiable_id' => function() {
-            return auth()->id()?: create(\App\User::class)->id;
+        'notifiable_id' => function () {
+            return auth()->id() ?: create(\App\User::class)->id;
         },
-        'data' => ['foo' => 'bar']
+        'data' => ['foo' => 'bar'],
     ];
 });
