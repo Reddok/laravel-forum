@@ -40,7 +40,6 @@ class ThreadController extends Controller
         return view('threads/index', compact('threads', 'trending'));
     }
 
-
     public function create()
     {
         return view('threads/create');
