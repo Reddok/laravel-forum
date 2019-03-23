@@ -37,6 +37,7 @@ Vue.component('image-upload', require('./components/ImageUpload.vue'));
 Vue.component('wysiwyg', require('./components/Wysiwyg'));
 Vue.component('highlight', require('./components/Highlight'));
 Vue.component('code-highlight', require('./components/CodeHighlight'));
+Vue.component('channel-dropdown', require('./components/ChannelDropdown'));
 
 
 const app = new Vue({
