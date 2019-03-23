@@ -26,7 +26,9 @@ class AddLockedFieldToThreadsTable extends Migration
     public function down()
     {
         Schema::table('threads', function (Blueprint $table) {
-            $table->dropColumn('locked');
+            if (Schema::hasColumn('threads', 'locked')) {
+                $table->dropColumn('locked');
+            }
         });
     }
 }
