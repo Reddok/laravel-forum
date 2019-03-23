@@ -4,11 +4,17 @@
             <div class="level">
                 <div class="flex">
                     <h4>
-                        @if(auth()->check() && $thread->hasUpdatesFor(auth()->user()))
-                            <a href="{{ $thread->path() }}"><strong>{{ $thread->title }}</strong></a>
-                        @else
-                            <a href="{{ $thread->path() }}">{{ $thread->title }}</a>
-                        @endif
+                        <a href="{{ $thread->path() }}">
+                            @if($thread->pinned)
+                                <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+                            @endif
+
+                            @if(auth()->check() && $thread->hasUpdatesFor(auth()->user()))
+                                <strong>{{ $thread->title }}</strong>
+                            @else
+                                {{ $thread->title }}
+                            @endif
+                        </a>
                     </h4>
                     <h5>Posted by <a href="{{ route('profiles.index', ['user' => $thread->creator]) }}">{{ $thread->creator->name }}</a></h5>
                 </div>

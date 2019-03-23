@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddLockedFieldToThreadsTable extends Migration
+class AddPinnedColumnToThreadTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddLockedFieldToThreadsTable extends Migration
     public function up()
     {
         Schema::table('threads', function (Blueprint $table) {
-            $table->boolean('locked')->default(false);
+            $table->boolean('pinned')->default(false);
         });
     }
 
@@ -26,9 +26,7 @@ class AddLockedFieldToThreadsTable extends Migration
     public function down()
     {
         Schema::table('threads', function (Blueprint $table) {
-            if (Schema::hasColumn('threads', 'locked')) {
-                $table->dropColumn('locked');
-            }
+            $table->dropColumn('locked');
         });
     }
 }

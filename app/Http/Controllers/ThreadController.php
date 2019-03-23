@@ -20,11 +20,6 @@ class ThreadController extends Controller
         $this->trending = new Trending(app()->environment('testing') ? 'test_trending' : 'trending_threads');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Channel $channel = null, ThreadFilter $filters)
     {
         $threads = Thread::filter($filters);
@@ -33,30 +28,23 @@ class ThreadController extends Controller
             $threads->where('channel_id', $channel->id);
         }
 
-        $threads->latest();
+        $threads->orderBy('pinned', 'DESC')->latest();
         $threads = $threads->paginate(5);
+
+        if (request()->wantsJson()) {
+            return $threads;
+        }
 
         $trending = $this->trending->get(4);
 
         return view('threads/index', compact('threads', 'trending'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('threads/create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, Recaptcha $recaptcha)
     {
         $this->validate($request, [
@@ -81,12 +69,6 @@ class ThreadController extends Controller
         return redirect($thread->path())->with('flash', 'The thread has been successfully created!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
     public function show(string $channel, Thread $thread)
     {
         if (auth()->check()) {
@@ -99,24 +81,11 @@ class ThreadController extends Controller
         return view('threads/show', compact('thread'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Thread $thread)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
     public function update($channel, Thread $thread, Request $request)
     {
         $this->authorize('update', $thread);
@@ -129,12 +98,6 @@ class ThreadController extends Controller
         return $thread;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(string $channel, Thread $thread)
     {
         $this->authorize('update', $thread);
