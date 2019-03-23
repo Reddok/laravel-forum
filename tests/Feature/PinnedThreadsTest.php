@@ -3,9 +3,8 @@
 namespace Tests\Feature;
 
 use App\Thread;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PinnedThreadsTest extends TestCase
 {
@@ -48,8 +47,8 @@ class PinnedThreadsTest extends TestCase
                 'data' => [
                     ['id' => $ids[0]],
                     ['id' => $ids[1]],
-                    ['id' => $ids[2]]
-                ]
+                    ['id' => $ids[2]],
+                ],
             ]);
 
         $this->post(route('pinned-threads.store', $threads->last()));
@@ -59,8 +58,8 @@ class PinnedThreadsTest extends TestCase
                 'data' => [
                     ['id' => $ids[2]],
                     ['id' => $ids[0]],
-                    ['id' => $ids[1]]
-                ]
+                    ['id' => $ids[1]],
+                ],
             ]);
     }
 }
