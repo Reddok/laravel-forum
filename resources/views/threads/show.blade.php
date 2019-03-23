@@ -10,6 +10,8 @@
             :thread="{{ $thread }}"
             lock-url="{{ route('lock-threads.store', $thread) }}"
             unlock-url="{{ route('lock-threads.destroy', $thread) }}"
+            pin-url="{{ route('pinned-threads.store', $thread) }}"
+            unpin-url="{{ route('pinned-threads.destroy', $thread) }}"
             save-url="{{ route('threads.update', ['channel' => $thread->channel, 'thread' => $thread]) }}"
             v-cloak
     >
@@ -37,7 +39,18 @@
                                         initial-state="{{ json_encode($thread->isSubscribedTo) }}"
                                         subscribe-url="{{ route('threadSubscriptions.create', ['channel' => $thread->channel, 'thread' => $thread]) }}"
                                 ></subscribe-button>
-                                <button class="btn btn-secondary" v-if="isAdmin()" @click="toggleLock" v-text="locked? 'Unlock' : 'Lock'"></button>
+                                <button
+                                        :class="classes(locked)"
+                                        v-if="isAdmin()"
+                                        @click="toggleLock"
+                                        v-text="locked? 'Unlock' : 'Lock'">
+                                </button>
+                                <button
+                                        :class="classes(pinned)"
+                                        v-if="isAdmin()"
+                                        @click="togglePin"
+                                        v-text="pinned? 'Unpin' : 'Pin'">
+                                </button>
                             </p>
                         </div>
                     </div>

@@ -22,6 +22,7 @@ class Thread extends Model
         'channel_id' => 'integer',
         'best_reply_id' => 'integer',
         'locked' => 'boolean',
+        'pinned' => 'boolean',
     ];
 
     public static function boot()
@@ -169,6 +170,18 @@ class Thread extends Model
     public function unlock()
     {
         $this->locked = false;
+        $this->save();
+    }
+
+    public function pin()
+    {
+        $this->pinned = true;
+        $this->save();
+    }
+
+    public function unpin()
+    {
+        $this->pinned = false;
         $this->save();
     }
 }

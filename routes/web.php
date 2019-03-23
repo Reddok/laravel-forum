@@ -50,6 +50,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['admin'])->group(function () {
     Route::post('/lock-threads/{thread}', 'LockThreadsController@store')->name('lock-threads.store');
     Route::delete('/lock-threads/{thread}', 'LockThreadsController@destroy')->name('lock-threads.destroy');
+    Route::post('/pinned-threads/{thread}', 'PinnedThreadController@store')->name('pinned-threads.store');
+    Route::delete('/pinned-threads/{thread}', 'PinnedThreadController@destroy')->name('pinned-threads.destroy');
 });
 
 Auth::routes();
