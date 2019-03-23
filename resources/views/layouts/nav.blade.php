@@ -31,19 +31,7 @@
                         <a class="nav-link" href="{{ route('threads.create') }}">Create new thread</a>
                     </li>
                 @endauth
-                <li class="nav-item">
-                    <div class="dropdown">
-                        <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Channels
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            @foreach($channels
-                             as $channel)
-                                <a class="dropdown-item" href="{{ route('threads.channel', ['channel' => $channel->slug]) }}">{{ $channel->name }}</a>
-                            @endforeach
-                        </div>
-                    </div>
-                </li>
+                <channel-dropdown class="nav-item" :channels="{{ $channels }}"></channel-dropdown>
             </ul>
 
             <!-- Right Side Of Navbar -->
